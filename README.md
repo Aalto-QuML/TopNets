@@ -12,7 +12,21 @@ The repository is developed on the intersection of [RePHINE](https://github.com/
 
 ## Training
 
-# CDR-H3 Antibody Design Design
+
+
+
+
+
+### Comparison with TOGL
+
+```
+cd RePHINE/
+python -u main_togl.py --dataset {ENZYMES/DD/Proteins}
+```
+
+
+
+### CDR-H3 Antibody Design Design
 
 ```
 cd Antibody/
