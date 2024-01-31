@@ -13,7 +13,7 @@ The repository is developed on the intersection of [RePHINE](https://github.com/
 ## Training
 
 
-### Training
+### Comparison with RePHINE
 
 ```
 cd RePHINE/
