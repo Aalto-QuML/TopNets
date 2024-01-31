@@ -13,7 +13,12 @@ The repository is developed on the intersection of [RePHINE](https://github.com/
 ## Training
 
 
+### Training
 
+```
+cd RePHINE/
+python -u main_2d.py  --dataset #######  --gnn gin --diagram_type {standard/rephine}  --nsteps 20 
+```
 
 
 
