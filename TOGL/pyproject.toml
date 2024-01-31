@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "topognn"
+version = "0.1.0"
+description = "Topological Graph Neural Networks"
+authors = []
+
+[tool.poetry.dependencies]
+python = ">=3.7.1,<3.9"
+torch = "==1.8.1"
+torch-geometric = {version = "==1.6.3", allow-prereleases = true}  # Depends on some prerelease packages
+
+pytorch-lightning = "==1.2.10"
+wandb = "^0.10.12"
+torch_persistent_homology = { path = "repos/torch_persistent_homology", develop = true }
+giotto-tda = "^0.4.0"
+python-igraph = "^0.8.3"
+networkx = "^2.5"
+scikit-learn = "^0.24.1"
+pandas = "^1.2.1"
+dgl = "^0.6.1"
+ogb = "^1.3.2"
+tadasets = "^0.0.4"
+
+[tool.poetry.dev-dependencies]
+ipdb = "^0.13.4"
+pytest = "^6.2.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+install_deps_cpu = "deps:install_deps_cpu"
+install_deps_cu101 = "deps:install_deps_cu101"
+install_deps_cu102 = "deps:install_deps_cu102"
+install_deps_cu110 = "deps:install_deps_cu110"
+rebuild_submodule = "deps:rebuild_submodule"
