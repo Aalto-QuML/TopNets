@@ -25,8 +25,7 @@ python -u main_togl.py --dataset {ENZYMES/DD/Proteins}
 ```
 
 
-
-### CDR-H3 Antibody Design Design
+### CDR-H3 Antibody Design
 
 ```
 cd Antibody/
