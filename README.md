@@ -1,4 +1,4 @@
-The code repository for the paper Topological Neural Networks go Persistent, Equivariant and Continuous.
+The code repository for Topological Neural Networks go Persistent, Equivariant and Continuous.
 
 The repository is developed on the intersection of [RePHINE](https://github.com/Aalto-QuML/RePHINE), [TOGL](https://github.com/BorgwardtLab/TOGL) and [AbODE](https://github.com/yogeshverma1998/AbODE). Please refer to their repos for specific architecture.
 
