@@ -12,3 +12,9 @@ The repository is developed on the intersection of [RePHINE](https://github.com/
 
 ## Training
 
+# CDR-H3 Antibody Design Design
+
+```
+cd Antibody/
+python -u train_topnets.py --cdr 3
+```
