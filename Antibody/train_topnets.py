@@ -44,7 +44,7 @@ test_path = str(cwd) + "/data/Cond_cdr_cluster/cdrh3/test.json"
 train_path = str(cwd) +  "/data/Cond_cdr_cluster/cdrh3/train.json"
 val_path = str(cwd) + "/data/Cond_cdr_cluster/cdrh3/val.json"
 
-model = TopNets_EGNN(29, 29,7)
+model = TopNets(29, 29,7)
 
 t_begin=0.
 t_end=1
