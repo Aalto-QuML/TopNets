@@ -9,8 +9,6 @@ The repository is developed on the intersection of [RePHINE](https://github.com/
 
 - Please install all the package requirements as mentioned in RePHINE, TOGL, and AbODE.
 - torchdiffeq : https://github.com/rtqichen/torchdiffeq.
-- pytorch >= 1.12.0
-- pytorch_geometric >= 1.12.0
 
 
 ## Training
