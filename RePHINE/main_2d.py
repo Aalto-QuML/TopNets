@@ -3,13 +3,16 @@ from torch import nn, optim
 import argparse
 import utils
 import json
-from models.topo_gnn import TopNN,TopNN_2D
+from models.topo_gnn import TopNN,TopNN_2D,TopoGNN_fixed_PH
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 import os
 from datasets.datasets import get_data
 from torch_geometric.data import DataLoader
 from ogb.graphproppred import Evaluator
 from utils.utils import set_seed, get_cin_tudata
+from models.models_cin import CIN0_PH,SparseCIN_PH
+import time
+
 
 torch.set_printoptions(precision=2)
 set_seed(42)
@@ -32,11 +35,13 @@ parser.add_argument('--fil_hid', type=int, default=16, metavar='nf',
                     help='Filtration hidden dim')
 parser.add_argument('--lr', type=float, default=1e-3, metavar='N',
                     help='learning rate')
-parser.add_argument("--dataset",type=str,default="NCI1",choices=["MUTAG","ogbg-molhiv","ZINC","DD","PROTEINS_full","PROTEINS","NCI109","NCI1","IMDB-BINARY",],)
+parser.add_argument('--cont', type=bool, default=True, metavar='N',
+                    help='Continuous Type or Not')
+parser.add_argument("--dataset",type=str,default="NCI1",choices=["PROTEINS_full","NCI109","NCI1","IMDB-BINARY",],)
 parser.add_argument('--weight_decay', type=float, default=1e-8, metavar='N',
                     help='weight decay')
 parser.add_argument("--diagram_type",type=str,default="rephine",choices=["rephine", "standard", "none"],) 
-parser.add_argument("--gnn",type=str,default="gcn",choices=["gcn", "gin"],)  
+parser.add_argument("--gnn",type=str,default="gcn",choices=["gcn", "gin"],)              
 
 args = parser.parse_args()
 args.cuda = torch.cuda.is_available()
@@ -44,15 +49,19 @@ device = torch.device("cuda" if args.cuda else "cpu")
 dtype = torch.float32
 print(args)
 
-
 train_data, val_data, test_data, stats = get_data(args.dataset, False)
 
 num_node_features = stats["num_features"]
 num_classes = stats["num_classes"]
 
 
+train_loader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True)
+val_loader = DataLoader(val_data, batch_size=len(val_data), shuffle=False)
+test_loader = DataLoader(test_data, batch_size=len(test_data), shuffle=False)
+
 
 model = TopNN_2D(hidden_dim=128,depth=1,gnn=args.gnn,num_node_features=num_node_features,num_classes=num_classes,num_filtrations=args.num_filtrations,filtration_hidden=args.fil_hid,out_ph_dim=args.out_ph,n_steps=args.nsteps,solver='adaptive_heun',diagram_type=args.diagram_type).to(device)
+
 evaluator = None
 if args.dataset == "ogbg-molhiv": evaluator = Evaluator(args.dataset)
 
@@ -67,7 +76,7 @@ for epoch in range(args.epochs):
     total_train_loss = 0
     total_val_loss = 0
     model.train()
-    for batch in Dloader['train']:
+    for batch in train_loader:
         optimizer.zero_grad()
         pred = model(batch.to(device))
         if args.dataset == "ogbg-molhiv":
@@ -75,20 +84,21 @@ for epoch in range(args.epochs):
         else:
             labels = batch.y
 
-        loss = loss_fn(pred.squeeze(), labels.float())
+        loss = loss_fn(pred.squeeze(), labels)
+
         loss.backward()
         optimizer.step()
         total_train_loss = total_train_loss + loss.item()
 
-   model.eval()
-    for batch in Dloader['valid']:
+    model.eval()
+    for batch in val_loader:
         batch = batch.to(device)
         out = model(batch)
         if args.dataset == "ogbg-molhiv":
             labels = torch.nn.functional.one_hot(batch.y.squeeze(), num_classes=num_classes).to(device)
         else:
             labels = batch.y
-        loss = loss_fn(out.squeeze(), labels.float())
+        loss = loss_fn(out.squeeze(), labels)
         total_val_loss = total_val_loss + loss.item()
         val_acc = -loss
 
@@ -102,7 +112,7 @@ for epoch in range(args.epochs):
     scheduler.step()
 
     test_acc = 0
-    for batch in Dloader['test']:
+    for batch in test_loader:
         batch = batch.to(device)
         out = model(batch)
         if evaluator is None:
@@ -113,8 +123,8 @@ for epoch in range(args.epochs):
 
 
     print(
-                f"{epoch:3d}: Train Loss: {float(total_train_loss/len(Dloader['train'])):.3f},"
-                f" Val Loss: {float(total_val_loss/len(Dloader['valid'])):.3f}, Val Acc: {val_acc.item():.3f}, "
+                f"{epoch:3d}: Train Loss: {float(total_train_loss/len(train_loader)):.3f},"
+                f" Val Loss: {float(total_val_loss/len(val_loader)):.3f}, Val Acc: {val_acc.item():.3f}, "
                 f"Test Acc: {test_acc.item():.3f}"
             )
 
@@ -122,8 +132,4 @@ for epoch in range(args.epochs):
     if total_val_loss < best_loss:
         best_loss = total_val_loss
         checkpoint = {'state_dict': model.state_dict(),'optimizer' :optimizer.state_dict()}
-        torch.save(checkpoint, str(cwd)+"/Models/"+"TopNNs_"+str(args.nsteps)+"_"+args.dataset+"_"+str(epoch) + ".pth")
-
-
-
-
+        torch.save(checkpoint, str(cwd)+"/Models/"+"TopNets_"+str(args.nsteps)+"_"+args.dataset+"_"+str(epoch) + ".pth")
