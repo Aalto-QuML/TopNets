@@ -47,11 +47,6 @@ val_path = str(cwd) + ""
 
 model = TopNets(29, 29,7)
 
-t_begin=0.
-t_end=1
-t_nsamples=200
-t_space = np.linspace(t_begin, t_end, t_nsamples)
-
 print("############################ Data is loading ###########################")
 Train_data = get_graph_data_polar_with_sidechains_angle_impsn(args.cdr,train_path)
 Test_data = get_graph_data_polar_with_sidechains_angle_impsn(args.cdr,test_path)
