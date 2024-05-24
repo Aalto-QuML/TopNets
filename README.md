@@ -36,6 +36,8 @@ python -u main_togl.py --dataset {ENZYMES/DD/Proteins}
 
 ### CDR-H3 Antibody Design
 
+Download the train/test/val files from here . Kindly add the paths to these files in ```train_topnets.py``` file. 
+
 ```
 cd Antibody/
 python -u train_topnets.py --cdr 3
