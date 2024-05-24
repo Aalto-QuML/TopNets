@@ -2,13 +2,10 @@ import torch
 import torch.nn as nn
 from torch_geometric.nn import JumpingKnowledge
 from torch_geometric.nn import PNAConv, global_add_pool, global_mean_pool, GINConv,GCNConv,GPSConv
-#from ..layers import rephine_layer
-from models.gnn import EGNN_cont,EGNN_cont_v2,SSP,GNN_cont,GNN,EGNN_QM9
-from models.models_cin import CIN0
+from models.gnn import GNN_cont,GNN
 import sys
 sys.path.append('../')
 from layers.rephine_layer import RephineLayer,RephineLayer_Equiv
-#from models.gnn import GNN
 from torchdiffeq import odeint as odeint
 import networkx as nx
 from torch_geometric.utils.convert import from_networkx
