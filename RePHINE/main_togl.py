@@ -26,6 +26,7 @@ parser.add_argument('--training_seed', type=int, default=None)
 parser.add_argument('--max_epochs', type=int, default=1000)
 parser.add_argument("--paired", type = str2bool, default=False)
 parser.add_argument("--merged", type = str2bool, default=False)
+parser.add_argument("--gnn",type=str,default="gcn",choices=["gcn", "gin"],)  
 partial_args, _ = parser.parse_known_args()
 #model_cls = MODEL_MAP[partial_args.model]
     #dataset_cls = DATASET_MAP[partial_args.dataset]
@@ -48,7 +49,7 @@ dtype = torch.float32
 print(args)
 Dloader = {"train": dataset.train_dataloader(),"valid": dataset.val_dataloader(), "test":dataset.test_dataloader()}
 
-model = TopNN_TOGL(hidden_dim=128,depth=1,gnn='gcn',num_node_features=dataset.node_attributes,num_classes=dataset.num_classes,num_filtrations=args.num_filtrations,filtration_hidden=args.fil_hid,out_ph_dim=args.out_ph,n_steps=args.nsteps,solver='adaptive_heun').to(device)
+model = TopNN_TOGL(hidden_dim=128,depth=1,gnn=args.gnn,num_node_features=dataset.node_attributes,num_classes=dataset.num_classes,num_filtrations=args.num_filtrations,filtration_hidden=args.fil_hid,out_ph_dim=args.out_ph,n_steps=args.nsteps,solver='adaptive_heun').to(device)
 
 evaluator = None
 if args.dataset == "ogbg-molhiv": evaluator = Evaluator(args.dataset)
