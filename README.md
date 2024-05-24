@@ -1,11 +1,13 @@
-The code repository for Topological Neural Networks go Persistent, Equivariant and Continuous.
+# Topological Neural Networks go Persistent, Equivariant and Continuous
 
-The repository is developed on the intersection of [RePHINE](https://github.com/Aalto-QuML/RePHINE), [TOGL](https://github.com/BorgwardtLab/TOGL) and [AbODE](https://github.com/yogeshverma1998/AbODE). Please refer to their repos for specific architecture.
+ [Yogesh verma](https://yoverma.github.io/yoerma.github.io/) | [Amauri H. Souza](https://www.amauriholanda.org)  |  [Vikas Garg](https://www.mit.edu/~vgarg/)
+
+The repository is developed on the intersection of [RePHINE](https://github.com/Aalto-QuML/RePHINE), [TOGL](https://github.com/BorgwardtLab/TOGL) and [AbODE](https://github.com/yogeshverma1998/AbODE). Please refer to their repos for specific requirements.
 
 
 ## Prerequisites
 
-- All the package requirements as mentioned in RePHINE,TOGL and AbODE.
+- Please install all the package requirements as mentioned in RePHINE, TOGL, and AbODE.
 - torchdiffeq : https://github.com/rtqichen/torchdiffeq.
 - pytorch >= 1.12.0
 - pytorch_geometric >= 1.12.0
@@ -13,8 +15,10 @@ The repository is developed on the intersection of [RePHINE](https://github.com/
 
 ## Training
 
+### Graph Classification
 
-### Comparison with RePHINE
+
+#### Comparison with RePHINE
 
 ```
 cd RePHINE/
@@ -22,8 +26,7 @@ python -u main_2d.py  --dataset #######  --gnn gin --diagram_type {standard/reph
 ```
 
 
-
-### Comparison with TOGL
+#### Comparison with TOGL
 
 ```
 cd RePHINE/
