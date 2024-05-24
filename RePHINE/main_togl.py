@@ -7,7 +7,6 @@ from torch_geometric.datasets import QM9
 from torch_geometric.nn.models.schnet import qm9_target_dict
 from models.topo_gnn import TopNN,TopNN_2D,TopNN_TOGL
 from torch.optim.lr_scheduler import ReduceLROnPlateau
-import wandb
 import os
 from datasets.datasets import get_data
 from torch_geometric.data import DataLoader
@@ -54,7 +53,6 @@ model = TopNN_TOGL(hidden_dim=128,depth=1,gnn='gcn',num_node_features=dataset.no
 evaluator = None
 if args.dataset == "ogbg-molhiv": evaluator = Evaluator(args.dataset)
 
-#model = EGNN(in_node_nf=15, in_edge_nf=0, hidden_nf=args.nf, device=device, n_layers=args.n_layers, coords_weight=1.0,attention=args.attention, node_attr=args.node_attr)
 print(model)
 optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=1e-5)
 scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, args.epochs)
@@ -113,4 +111,4 @@ for epoch in range(args.epochs):
     if total_val_loss < best_loss:
         best_loss = total_val_loss
         checkpoint = {'state_dict': model.state_dict(),'optimizer' :optimizer.state_dict()}
-        torch.save(checkpoint, str(cwd)+"/Models/"+"TopNNs_togl_"+str(args.nsteps)+"_"+args.dataset+"_"+str(epoch) + ".pth")
+        torch.save(checkpoint, str(cwd)+"/Models/"+"TopNets_togl_"+str(args.nsteps)+"_"+args.dataset+"_"+str(epoch) + ".pth")
