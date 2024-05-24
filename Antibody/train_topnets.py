@@ -40,9 +40,10 @@ args = parser.parse_args()
 cwd = os.getcwd() 
 device = torch.device('cuda:' + str(args.gpu) if torch.cuda.is_available() else 'cpu')
 
-test_path = str(cwd) + "/data/Cond_cdr_cluster/cdrh3/test.json"
-train_path = str(cwd) +  "/data/Cond_cdr_cluster/cdrh3/train.json"
-val_path = str(cwd) + "/data/Cond_cdr_cluster/cdrh3/val.json"
+### Put the path of the downloaded train/test/val files
+test_path = str(cwd) + ""
+train_path = str(cwd) +  ""
+val_path = str(cwd) + ""
 
 model = TopNets(29, 29,7)
 
