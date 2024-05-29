@@ -43,7 +43,7 @@ python -u main_qm9.py --target_name {mu,alpha,gap,r2,zpve,Cv,homo,lumo} --epochs
 
 ### CDR-H3 Antibody Design
 
-Download the train/test/val files from here . Kindly add the paths to these files in ```train_topnets.py``` file. 
+Download the train/test/val files from [here](https://aaltofi-my.sharepoint.com/:f:/g/personal/yogesh_verma_aalto_fi/Elq1NHn87odPkKs7oRs6EYwBYwn0c_uJlBU2DK_MXOxXAw?e=hEycUb). Kindly add the paths to these files in ```train_topnets.py``` file. 
 
 ```
 cd Antibody/
