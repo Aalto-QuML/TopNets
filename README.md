@@ -37,7 +37,7 @@ python -u main_togl.py --dataset {ENZYMES/DD/Proteins} --gnn {gin/gcn}
 
 ```
 cd empsn/
-python -u main_2d.py  --dataset #######  --gnn {gin/gcn} --diagram_type {standard/rephine}  --nsteps 20 
+python -u main_qm9.py --target_name {mu,alpha,gap,r2,zpve,Cv,homo,lumo} --epochs 1000 --dis 4.0 --dim 2 --num_hidden 77 --seed 42 --model_name {empsn_rephine_cont/empsn_rephine}
 ```
 
 
