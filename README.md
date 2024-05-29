@@ -2,13 +2,13 @@
 
  [Yogesh Verma](https://yoverma.github.io/yoerma.github.io/) | [Amauri H. Souza](https://www.amauriholanda.org)  |  [Vikas Garg](https://www.mit.edu/~vgarg/)
 
-The repository is developed on the intersection of [RePHINE](https://github.com/Aalto-QuML/RePHINE), [TOGL](https://github.com/BorgwardtLab/TOGL) and [AbODE](https://github.com/yogeshverma1998/AbODE). Please refer to their repos for specific requirements.
+The repository is developed on the intersection of [RePHINE](https://github.com/Aalto-QuML/RePHINE), [TOGL](https://github.com/BorgwardtLab/TOGL), [EMPSN](https://arxiv.org/abs/2305.07100) and [AbODE](https://github.com/yogeshverma1998/AbODE). Please refer to their repos for specific requirements.
 
 
 ## Prerequisites
 
-- Please install all the package requirements as mentioned in RePHINE, TOGL, and AbODE.
-- torchdiffeq : https://github.com/rtqichen/torchdiffeq.
+- Please install all the package requirements mentioned in RePHINE, TOGL, and AbODE.
+- torchdiffeq: https://github.com/rtqichen/torchdiffeq.
 
 
 ## Training
@@ -29,6 +29,15 @@ python -u main_2d.py  --dataset #######  --gnn {gin/gcn} --diagram_type {standar
 ```
 cd RePHINE/
 python -u main_togl.py --dataset {ENZYMES/DD/Proteins} --gnn {gin/gcn}
+```
+
+
+### QM9 Property Prediction
+
+
+```
+cd empsn/
+python -u main_2d.py  --dataset #######  --gnn {gin/gcn} --diagram_type {standard/rephine}  --nsteps 20 
 ```
 
 
