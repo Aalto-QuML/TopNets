@@ -3,7 +3,7 @@ import torch.nn as nn
 from torch_geometric.data import Data
 from torch import Tensor
 from torch_geometric.nn import global_add_pool
-from models.utils import MessageLayer, UpdateLayer
+from Models.utils import MessageLayer, UpdateLayer
 
 
 class EGNN(nn.Module):
