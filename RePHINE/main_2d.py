@@ -3,16 +3,14 @@ from torch import nn, optim
 import argparse
 import utils
 import json
-from models.topo_gnn import TopNN,TopNN_2D,TopoGNN_fixed_PH
+from models.topo_gnn import TopNN_2D
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 import os
-from datasets.datasets import get_data
+from RePHINE.datasets.datasets import get_data
 from torch_geometric.data import DataLoader
 from ogb.graphproppred import Evaluator
-from utils.utils import set_seed, get_cin_tudata
-from models.models_cin import CIN0_PH,SparseCIN_PH
 import time
-
+from RePHINE.utils.utils import set_seed
 
 torch.set_printoptions(precision=2)
 set_seed(42)
