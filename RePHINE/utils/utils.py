@@ -21,7 +21,6 @@ import pickle
 import sys
 from ogb.graphproppred import PygGraphPropPredDataset
 sys.path.append('../')
-from RePHINE.models.data_complex import Cochain, Complex
 import gudhi as gd
 import itertools
 from RePHINE.datasets.datasets import get_tudataset
@@ -37,55 +36,6 @@ import tqdm
 
 ATOM_REF_ENRGY = {1:-13.663181292231226, 6:-1029.2809654211628, 7:-1484.1187695035828, 8:-2042.0330099956639}
 EV_TO_KCAL_MOL = 23.06052
-
-
-def get_qm7_data(batch_size):
-    train_data = []
-    val_data = []
-    test_data = []
-
-    featurizer = MolGraphConvFeaturizer(use_edges=True)
-    scaffoldsplitter = dc.splits.RandomStratifiedSplitter()
-    dataset_dc = dc.molnet.load_qm7(featurizer=featurizer,splitter=scaffoldsplitter)
-    tasks, dataset, transformers = dataset_dc
-    train, valid, test = dataset
-
-    for data,label in zip(train.X,train.y):
-        edge_index = torch.from_numpy(data.edge_index).long()
-        pos = torch.from_numpy(data.pos).float()
-        y = torch.from_numpy(label).float()
-        edge_attr = torch.from_numpy(data.edge_features).float()
-        h = torch.from_numpy(data.node_features).float()
-        num_edge_nf = edge_attr.shape[1]
-        num_node_nf = h.shape[1]
-        train_data.append(Data(x=h,edge_index=edge_index,pos=pos,edge_attr=edge_attr,y=y))
-
-
-    for data,label in zip(valid.X,valid.y):
-        edge_index = torch.from_numpy(data.edge_index).long()
-        pos = torch.from_numpy(data.pos).float()
-        y = torch.from_numpy(label).float()
-        edge_attr = torch.from_numpy(data.edge_features).float()
-        h = torch.from_numpy(data.node_features).float()
-        val_data.append(Data(x=h,edge_index=edge_index,pos=pos,edge_attr=edge_attr,y=y))
-
-
-    for data,label in zip(test.X,test.y):
-        edge_index = torch.from_numpy(data.edge_index).long()
-        pos = torch.from_numpy(data.pos).float()
-        y = torch.from_numpy(label).float()
-        edge_attr = torch.from_numpy(data.edge_features).float()
-        h = torch.from_numpy(data.node_features).float()
-        test_data.append(Data(x=h,edge_index=edge_index,pos=pos,edge_attr=edge_attr,y=y))
-
-    train_loader = DataLoader(train_data,batch_size=batch_size,shuffle=False)
-    val_loader = DataLoader(val_data,batch_size=batch_size,shuffle=False)
-    test_loader = DataLoader(test_data,batch_size=batch_size,shuffle=False)
-
-    dataloader = {"train": train_loader,"valid": val_loader, "test":test_loader}
-
-    return dataloader,transformers,num_node_nf,num_edge_nf
-    
 
 
 
