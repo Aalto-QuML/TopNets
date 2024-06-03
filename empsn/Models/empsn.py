@@ -5,7 +5,7 @@ from torch import Tensor
 from torch_geometric.nn import global_add_pool, MessagePassing
 from typing import Tuple, Dict, List
 from torch_scatter import scatter_add
-from models.utils import compute_invariants_3d
+from Models.utils import compute_invariants_3d
 from torch_geometric.data import Data
 from torch_geometric.data import DataLoader 
 from torch_cluster import knn_graph
@@ -13,8 +13,6 @@ from torchdiffeq import odeint as odeint
 import sys
 sys.path.append('../')
 from RePHINE.layers.rephine_layer import RephineLayer_Equiv
-from egnn.lib_adatop.pc_representation import PCFeatureNet
-from egnn.lib_adatop.pc_representation  import *
 
 
 class EMPSN(nn.Module):
