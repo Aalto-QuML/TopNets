@@ -22,19 +22,12 @@ import torch.optim as optim
 from rmsd import *
 
 set_seed(42)
-SOLVERS = ["dopri8","dopri5", "bdf", "rk4", "midpoint", 'adams', 'explicit_adams', 'fixed_adams']
 parser = argparse.ArgumentParser('TopNets')
-
-parser.add_argument('--solver', type=str, default="adaptive_heun", choices=SOLVERS)
-parser.add_argument('--atol', type=float, default=5e-1)
-parser.add_argument('--rtol', type=float, default=5e-1)
-parser.add_argument("--step_size", type=float, default=None, help="Optional fixed step size.")
-
 parser.add_argument('--niters', type=int, default=1000)
 parser.add_argument('--batch_size', type=int, default=32)
 parser.add_argument('--lr', type=float, default=0.001)
 parser.add_argument('--weight_decay', type=float, default=1e-9)
-parser.add_argument('--cdr', type=int, default=1)
+parser.add_argument('--cdr', type=int, default=3)
 args = parser.parse_args()
 
 cwd = os.getcwd() 
@@ -117,7 +110,7 @@ for epoch in range(args.niters):
     if total_val_loss < best_loss:
         best_loss = total_val_loss
         checkpoint = {'state_dict': model.state_dict(),'optimizer' :optimizer.state_dict()}
-        torch.save(checkpoint, str(cwd)+"/Models/TopNNs_rabd_"+str(epoch) + ".pth")
+        torch.save(checkpoint, str(cwd)+"/Models/TopNets_antibody_"+str(epoch) + ".pth")
     
     for batch in Test_loader:
         batch = batch.to(device)
