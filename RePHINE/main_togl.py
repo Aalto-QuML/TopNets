@@ -3,9 +3,7 @@ from torch import nn, optim
 import argparse
 from utils.utils import set_seed
 import json
-from torch_geometric.datasets import QM9
-from torch_geometric.nn.models.schnet import qm9_target_dict
-from models.topo_gnn import TopNN,TopNN_2D,TopNN_TOGL
+from models.topo_gnn import TopNN_TOGL
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 import os
 from datasets.datasets import get_data
