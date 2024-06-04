@@ -20,7 +20,7 @@ The repository is developed on the intersection of [RePHINE](https://github.com/
 
 ```
 cd RePHINE/
-python -u main_2d.py  --dataset #######  --gnn {gin/gcn} --diagram_type {standard/rephine}  --nsteps 20 
+python -u main_2d.py  --dataset {PROTEINS_full/NCI109/NCI1/IMDB-BINARY}  --gnn {gin/gcn} --diagram_type {standard/rephine}  --nsteps 20 
 ```
 
 
